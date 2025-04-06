@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(34, 243, 173);
+            text-align: center;
+            font-size: larger;
+            margin-top: 50px;
+        }
+        #exform {
+            width: 350px;
+            height: 250px;
+            color: rgb(3, 3, 3);   
+        }
+        h2 {
+            text-decoration: underline;
+        }
+        h2:hover {
+            color: rgb(255, 0, 0);
+        }
+        .form {
+            width: 320px;
+            height: 350px;
+            background-color: rgba(205, 201, 201, 0.5);
+            padding: 30px;
+            align-items: center;
+            margin-left: 36%;
+            margin-top: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+            text-align: left;
+        }
+        #butn {
+            width: 100px;
+            align-self: center;
+            margin-left: 108px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Validation</h2>
+    <div class="form">
+        <form id="exform">
+            <label for="email-id">Email-Id:</label>
+            <input type="email" id="email-id" name="email-id" required>
+            <br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br><br>
+            <label for="confirm-password">Confirm-password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+            <br><br>
+            <label for="DOB">Date of Birth:</label>
+            <input type="date" id="DOB" name="DOB" required>
+            <br><br>
+            <label for="verification-as-human">Verification-as-Human</label>
+            <input type="checkbox" id="verification-as-human" name="verification-as-human">
+            <br><br>
+            <label for="documents">Documents</label>
+            <input type="file" id="documents" name="documents" required>
+            <br><br><br>
+            <button type="submit" id="butn">Submit</button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('exform');
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById("email-id").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const DOB = document.getElementById("DOB").value;
+            const verification = document.getElementById("verification-as-human").checked;
+            const documents = document.getElementById("documents").files[0];
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!email || !password || !confirmPassword || !DOB || !documents) {
+                alert("All fields must be filled out!");
+                return;
+            }
+
+            if (!passwordRegex.test(password)) {
+                alert("Password must contain at least 1 uppercase character, 1 lowercase character, 1 special symbol, 1 number, and must be at least 8 characters long!");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match! Please try again.");
+                return;
+            }
+
+            if (!verification) {
+                alert("Please verify you are human!");
+                return;
+            }
+
+            alert(`Form Submitted!!\nUsername: ${email}\nPassword: ${password}`);
+        });
+    </script>
+</body>
+</html>
+
